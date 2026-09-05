@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cinematrix"
+version = "0.1.0"
+description = "CineMatrix: Autonomous AI Studio Director & On-Chain Micro-Royalty Platform powered by Google Gemini Pro, ClickHouse, and SynapticChain L1"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "SynapticChain Team", email = "dev@synapticchain.xyz" }
+]
+dependencies = [
+    "google-genai>=2.20.0",
+    "clickhouse-connect>=0.8.0",
+    "fastapi>=0.115.0",
+    "uvicorn>=0.30.0",
+    "pydantic>=2.8.0",
+    "requests>=2.31.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cinematrix*"]
