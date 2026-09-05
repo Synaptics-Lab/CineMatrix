@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Denis V. (Director)",
+    "role": "Director",
+    "share_bps": 1500,
+    "lane_id": 0,
+    "wallet_address": "syn1pcxpc8awy6nxqwj83emrvr4zndcd0rskzq9tqp",
+    "private_key_hex": "757d7882060fa7c13b0e7450fb8e4643df8be019626562ee71d102ca9efc74cd"
+  },
+  {
+    "name": "Timoth\u00e9e C. & Zendaya (Lead Cast)",
+    "role": "Lead Cast",
+    "share_bps": 2500,
+    "lane_id": 1,
+    "wallet_address": "syn1sfu6e647k7mzjc2nhck6degeywz38vw0fqvmx4",
+    "private_key_hex": "c59a293cce3f0357053ab067a101f690423484b764fc744692f23b5445cfa6bb"
+  },
+  {
+    "name": "Hans Z. (Original Score / Composer)",
+    "role": "Composer",
+    "share_bps": 1000,
+    "lane_id": 2,
+    "wallet_address": "syn12lcju97h2tkrqg4gn84ss0rzucw24wehwa495p",
+    "private_key_hex": "3e6ecf8caa5298d1effdcadd5d41831668fb058169cc7847034e45033b6efb5e"
+  },
+  {
+    "name": "DNEG VFX & CGI Post-Production Crew",
+    "role": "VFX Crew",
+    "share_bps": 1200,
+    "lane_id": 3,
+    "wallet_address": "syn1ngwyec8kx6aa4khezwzahpnz0pc44jkev463hm",
+    "private_key_hex": "4477573754d25b5fb51d8d46cc07ef61d4b9e07202900be134983c9aeb3de3ba"
+  },
+  {
+    "name": "SAG-AFTRA & Stunt Performer Guild",
+    "role": "Stunt Performers",
+    "share_bps": 800,
+    "lane_id": 4,
+    "wallet_address": "syn1fxhh70w5c8uzun29wlp7fz7qxl4xn4vlu2yttz",
+    "private_key_hex": "bf5fedd9af2f771b6f862cc387f4cb84db042e8ceef828640bd050ceb3abaea2"
+  },
+  {
+    "name": "Legendary Pictures & Warner Bros Studio Reserve",
+    "role": "Studio Equity",
+    "share_bps": 3000,
+    "lane_id": 5,
+    "wallet_address": "syn1xtku45nftzxk9pzk6vmrud0sj44kyycmpzml97",
+    "private_key_hex": "39ca77cbabd96f55b2704b79fb72af2085d7e058641b38d91fe548aeee30dcab"
+  }
+]

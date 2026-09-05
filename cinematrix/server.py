@@ -78,6 +78,14 @@ def execute_settlement(title_id: str = "dune-part-3", gross_usd: float = 4500000
 def get_receipts(limit: int = 50):
     return ch_engine.get_recent_royalty_receipts(limit=limit)
 
+@app.get("/api/escrows")
+def get_escrow_balances():
+    return onchain_settler.get_escrow_balances()
+
+@app.get("/api/settlements/verify/{tx_hash}")
+def verify_settlement_receipt(tx_hash: str):
+    return onchain_settler.verify_onchain_receipt(tx_hash)
+
 # Mount web frontend if exists
 web_dir = os.path.join(os.path.dirname(__file__), "..", "web")
 if os.path.exists(web_dir):
