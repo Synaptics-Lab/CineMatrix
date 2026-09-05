@@ -86,6 +86,13 @@ def get_escrow_balances():
 def verify_settlement_receipt(tx_hash: str):
     return onchain_settler.verify_onchain_receipt(tx_hash)
 
+# Mount Official ClickHouse MCP Server (SSE transport)
+try:
+    from cinematrix.mcp_server import mcp as mcp_server
+    app.mount("/mcp", mcp_server.sse_app())
+except Exception as e:
+    print(f"[CineMatrix] Warning mounting MCP server: {e}")
+
 # Mount web frontend if exists
 web_dir = os.path.join(os.path.dirname(__file__), "..", "web")
 if os.path.exists(web_dir):
