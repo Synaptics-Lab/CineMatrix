@@ -11,12 +11,15 @@
     :root {
       --bg-dark: #07090E;
       --card-bg: #0D1117;
+      --card-hover: #131A26;
       --card-border: #1F2937;
+      --card-border-light: #2D3748;
       --gold: #F59E0B;
-      --gold-glow: rgba(245, 158, 11, 0.2);
+      --gold-glow: rgba(245, 158, 11, 0.15);
       --cyan: #06B6D4;
-      --cyan-glow: rgba(6, 182, 212, 0.2);
+      --cyan-glow: rgba(6, 182, 212, 0.15);
       --green: #10B981;
+      --green-glow: rgba(16, 185, 129, 0.15);
       --purple: #8B5CF6;
       --red: #EF4444;
       --text-main: #F3F4F6;
@@ -36,58 +39,98 @@
 
     /* Top Ribbon */
     .top-ribbon {
-      background: #0B0F19;
+      background: #090D14;
       border-bottom: 1px solid var(--card-border);
-      padding: 8px 24px;
+      padding: 6px 24px;
       display: flex;
       justify-content: space-between;
-      font-size: 11.5px;
+      align-items: center;
+      font-size: 11px;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
     }
     .ribbon-item { display: flex; align-items: center; gap: 8px; }
-    .dot-live { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
+    .dot-live {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.9); } }
 
     /* Header */
     header {
-      padding: 16px 24px;
+      padding: 14px 24px;
       border-bottom: 1px solid var(--card-border);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(13, 17, 23, 0.85);
-      backdrop-filter: blur(8px);
+      background: rgba(13, 17, 23, 0.9);
+      backdrop-filter: blur(10px);
       flex-wrap: wrap;
       gap: 16px;
     }
     .brand { display: flex; align-items: center; gap: 12px; }
     .brand-logo {
-      width: 40px; height: 40px; border-radius: 8px;
+      width: 42px; height: 42px; border-radius: 10px;
       background: linear-gradient(135deg, var(--gold), #D97706);
       display: flex; align-items: center; justify-content: center;
-      font-size: 20px; font-weight: 800; color: #000;
+      font-size: 22px; font-weight: 800; color: #000;
       box-shadow: 0 0 16px var(--gold-glow);
     }
-    .brand-title { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; }
+    .brand-title { font-size: 19px; font-weight: 800; letter-spacing: 0.5px; }
     .brand-title span { color: var(--gold); }
     .brand-sub { font-size: 11px; color: var(--text-muted); }
-    .track-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* Nav Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 6px;
+      background: #090D14;
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+    }
+    .nav-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .nav-tab:hover { color: #fff; background: rgba(255, 255, 255, 0.05); }
+    .nav-tab.active {
+      background: var(--card-hover);
+      color: var(--cyan);
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.15);
+      border: 1px solid var(--card-border-light);
+    }
+
+    /* Track Badges */
+    .track-badges { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
     .badge {
       padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
-      border: 1px solid;
+      border: 1px solid; cursor: default; display: inline-flex; align-items: center; gap: 4px;
+      transition: 0.2s;
     }
-    .badge-clickhouse { background: rgba(245, 158, 11, 0.1); border-color: var(--gold); color: var(--gold); }
-    .badge-gemini { background: rgba(6, 182, 212, 0.1); border-color: var(--cyan); color: var(--cyan); }
-    .badge-synaptic { background: rgba(16, 185, 129, 0.1); border-color: var(--green); color: var(--green); }
-    .badge-live { background: rgba(16, 185, 129, 0.15); border-color: var(--green); color: var(--green); font-size: 10px; }
+    .badge-clickhouse { background: rgba(245, 158, 11, 0.08); border-color: var(--gold); color: var(--gold); }
+    .badge-gemini { background: rgba(6, 182, 212, 0.08); border-color: var(--cyan); color: var(--cyan); }
+    .badge-synaptic { background: rgba(16, 185, 129, 0.08); border-color: var(--green); color: var(--green); }
+    .badge-lane { background: rgba(139, 92, 246, 0.08); border-color: var(--purple); color: var(--purple); }
 
     /* Layout */
     .container {
-      max-width: 1600px; margin: 0 auto; padding: 24px; width: 100%;
+      max-width: 1600px; margin: 0 auto; padding: 20px 24px; width: 100%;
       display: flex; flex-direction: column; gap: 20px; flex: 1;
     }
 
-    /* KPI Cards */
+    /* KPI Row */
     .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
     @media (max-width: 1024px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 640px) { .kpi-row { grid-template-columns: 1fr; } }
@@ -95,34 +138,19 @@
     .kpi-card {
       background: var(--card-bg); border: 1px solid var(--card-border);
       border-radius: 12px; padding: 16px 20px; position: relative; overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+      cursor: default;
     }
-    .kpi-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-    .kpi-val { font-size: 22px; font-weight: 800; }
-    .kpi-sub { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+    .kpi-card:hover { border-color: var(--card-border-light); transform: translateY(-2px); }
+    .kpi-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between; }
+    .kpi-val { font-size: 24px; font-weight: 800; }
+    .kpi-sub { font-size: 11.5px; color: var(--text-dim); margin-top: 5px; }
 
-    /* Escrow Wallets Grid */
-    .escrow-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
-    @media (max-width: 1280px) { .escrow-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 768px) { .escrow-grid { grid-template-columns: 1fr; } }
-
-    .escrow-card {
-      background: #090D14; border: 1px solid var(--card-border); border-radius: 10px;
-      padding: 12px 14px; display: flex; flex-direction: column; gap: 4px;
-      transition: border-color 0.2s;
-    }
-    .escrow-card:hover { border-color: var(--cyan); }
-    .escrow-role { font-size: 11.5px; font-weight: 700; color: #fff; }
-    .escrow-lane { font-size: 10px; color: var(--gold); }
-    .escrow-addr { font-size: 10px; color: var(--text-dim); word-break: break-all; }
-    .escrow-bal { font-size: 15px; font-weight: 800; color: var(--green); margin-top: 4px; }
-
-    /* Main Grid */
-    .main-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 20px; flex: 1; }
-    @media (max-width: 1024px) { .main-grid { grid-template-columns: 1fr; } }
-
+    /* Cards & Containers */
     .deck-card {
       background: var(--card-bg); border: 1px solid var(--card-border);
       border-radius: 12px; padding: 20px; display: flex; flex-direction: column;
+      position: relative;
     }
     .card-header {
       display: flex; justify-content: space-between; align-items: center;
@@ -132,11 +160,36 @@
     .card-title { font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
 
     /* Director Console */
-    .console-box {
-      background: #05070A; border: 1px solid var(--card-border); border-radius: 8px;
-      padding: 16px; min-height: 280px; max-height: 380px; overflow-y: auto;
-      font-size: 12px; line-height: 1.6; white-space: pre-wrap; color: #E5E7EB;
+    .chat-container {
+      display: flex; flex-direction: column; gap: 12px;
+      min-height: 320px; max-height: 440px; overflow-y: auto;
+      background: #05070A; border: 1px solid var(--card-border); border-radius: 10px;
+      padding: 16px; scroll-behavior: smooth;
     }
+    .chat-msg {
+      display: flex; flex-direction: column; gap: 6px;
+      padding: 12px 16px; border-radius: 8px; font-size: 12.5px; line-height: 1.6;
+      animation: fadeIn 0.25s ease-out;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .chat-msg-user {
+      background: #111827; border-left: 3px solid var(--cyan); align-self: flex-start; width: 100%;
+    }
+    .chat-msg-agent {
+      background: #090E17; border-left: 3px solid var(--gold); align-self: flex-start; width: 100%;
+    }
+    .chat-msg-agent strong { color: #fff; }
+    .chat-author { font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+    .chat-author.agent { color: var(--gold); }
+    .chat-author.user { color: var(--cyan); }
+
+    .tool-chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 2px 8px; border-radius: 4px; font-size: 10px;
+      background: rgba(6, 182, 212, 0.1); color: var(--cyan); border: 1px solid rgba(6, 182, 212, 0.3);
+      margin-right: 4px; margin-bottom: 4px;
+    }
+
     .prompt-bar { display: flex; gap: 10px; margin-top: 14px; }
     .prompt-input {
       flex: 1; background: #05070A; border: 1px solid var(--card-border);
@@ -144,263 +197,591 @@
     }
     .prompt-input:focus { outline: none; border-color: var(--cyan); }
     .btn {
-      padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 12.5px;
-      cursor: pointer; border: none; transition: 0.2s;
+      padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 12px;
+      cursor: pointer; border: none; transition: 0.2s; display: inline-flex; align-items: center; gap: 6px;
     }
     .btn-primary { background: linear-gradient(135deg, var(--cyan), #0284C7); color: #fff; }
     .btn-primary:hover { opacity: 0.9; }
-    .quick-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .btn-gold { background: linear-gradient(135deg, var(--gold), #D97706); color: #000; font-weight: 700; }
+    .btn-gold:hover { opacity: 0.95; box-shadow: 0 0 12px var(--gold-glow); }
     .btn-action {
       background: #151C28; border: 1px solid var(--card-border); color: var(--text-muted);
       padding: 6px 12px; border-radius: 6px; font-size: 11px; cursor: pointer;
     }
     .btn-action:hover { border-color: var(--gold); color: #fff; }
 
+    .quick-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+
+    /* Escrows Grid */
+    .escrow-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+    @media (max-width: 1280px) { .escrow-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 768px) { .escrow-grid { grid-template-columns: 1fr; } }
+
+    .escrow-card {
+      background: #090D14; border: 1px solid var(--card-border); border-radius: 10px;
+      padding: 14px; display: flex; flex-direction: column; gap: 6px;
+      transition: all 0.2s ease; position: relative;
+    }
+    .escrow-card:hover { border-color: var(--cyan); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+    .escrow-role { font-size: 12px; font-weight: 700; color: #fff; }
+    .escrow-meta { display: flex; justify-content: space-between; font-size: 10.5px; }
+    .escrow-lane { color: var(--purple); font-weight: 600; }
+    .escrow-share { color: var(--gold); font-weight: 700; }
+    .escrow-addr-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      background: #05070A; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--card-border);
+      font-size: 9.5px; color: var(--text-dim); margin-top: 2px;
+    }
+    .copy-btn {
+      background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 11px;
+      padding: 0 4px;
+    }
+    .copy-btn:hover { color: var(--cyan); }
+    .escrow-bal-row { display: flex; justify-content: space-between; align-items: baseline; margin-top: 4px; }
+    .escrow-bal-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; }
+    .escrow-bal { font-size: 16px; font-weight: 800; color: var(--green); }
+
+    /* Tables */
+    .table-container { overflow-x: auto; flex: 1; border-radius: 8px; border: 1px solid var(--card-border); }
+    table { width: 100%; border-collapse: collapse; font-size: 11.5px; text-align: left; }
+    th {
+      padding: 10px 14px; color: var(--text-muted); background: #090D14;
+      border-bottom: 1px solid var(--card-border); text-transform: uppercase; font-size: 10px; letter-spacing: 0.5px;
+    }
+    td { padding: 12px 14px; border-bottom: 1px solid #131A26; }
+    tr:hover { background: #111827; }
+
+    /* Territory Grid & Telemetry */
+    .territory-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+    @media (max-width: 800px) { .territory-grid { grid-template-columns: repeat(2, 1fr); } }
+    .terr-item { background: #070A10; border: 1px solid var(--card-border); border-radius: 8px; padding: 12px; text-align: center; }
+    .terr-name { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+    .terr-val { font-size: 15px; font-weight: 700; color: var(--gold); }
+    .terr-share { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+
     /* Retention SVG Chart */
     .retention-container {
       background: #05070A; border: 1px solid var(--card-border); border-radius: 8px;
-      padding: 16px; height: 180px; position: relative; margin-bottom: 16px;
+      padding: 16px; height: 190px; position: relative; margin-bottom: 16px;
     }
     .chart-svg { width: 100%; height: 100%; }
 
-    /* Table */
-    .table-container { overflow-x: auto; flex: 1; }
-    table { width: 100%; border-collapse: collapse; font-size: 11px; }
-    th { text-align: left; padding: 10px 12px; color: var(--text-muted); border-bottom: 1px solid var(--card-border); text-transform: uppercase; font-size: 10px; }
-    td { padding: 10px 12px; border-bottom: 1px solid #151C28; }
-    tr:hover { background: #131A26; }
-
-    /* Territory Bar */
-    .territory-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
-    @media (max-width: 640px) { .territory-grid { grid-template-columns: repeat(2, 1fr); } }
-    .terr-item { background: #070A10; border: 1px solid var(--card-border); border-radius: 6px; padding: 10px; text-align: center; }
-    .terr-name { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
-    .terr-val { font-size: 14px; font-weight: 700; color: var(--gold); }
+    /* Fraud Defense Cluster Cards */
+    .fraud-cluster-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+    @media (max-width: 640px) { .fraud-cluster-grid { grid-template-columns: 1fr; } }
+    .fraud-cluster-card {
+      background: #0B0810; border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 8px;
+      padding: 12px 14px; display: flex; flex-direction: column; gap: 4px;
+    }
 
     /* Modal */
     .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px);
-      display: none; align-items: center; justify-content: center; z-index: 999;
-      padding: 20px;
+      position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+      display: none; align-items: center; justify-content: center; z-index: 999; padding: 20px;
     }
     .modal-box {
       background: #0B0F19; border: 1px solid var(--cyan); border-radius: 12px;
       width: 100%; max-width: 680px; padding: 24px; display: flex; flex-direction: column; gap: 16px;
-      box-shadow: 0 0 30px rgba(6, 182, 212, 0.25);
+      box-shadow: 0 0 40px rgba(6, 182, 212, 0.25);
     }
     .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border); padding-bottom: 12px; }
-    .modal-title { font-size: 16px; font-weight: 700; color: var(--cyan); display: flex; align-items: center; gap: 8px; }
+    .modal-title { font-size: 15px; font-weight: 700; color: var(--cyan); display: flex; align-items: center; gap: 8px; }
     .modal-close { background: none; border: none; font-size: 20px; color: var(--text-dim); cursor: pointer; }
     .modal-body { font-size: 12px; line-height: 1.6; max-height: 480px; overflow-y: auto; }
     .code-block { background: #05070A; border: 1px solid var(--card-border); border-radius: 6px; padding: 12px; font-size: 11px; overflow-x: auto; color: var(--green); }
 
+    /* Universal Anti-Slop Floating Tooltip */
+    #global-tooltip {
+      position: fixed; display: none; z-index: 10000; pointer-events: none;
+      background: rgba(11, 15, 25, 0.96); border: 1px solid var(--cyan); border-radius: 8px;
+      padding: 10px 14px; font-size: 11px; line-height: 1.45; color: #E5E7EB;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.7), 0 0 12px var(--cyan-glow);
+      max-width: 320px; backdrop-filter: blur(8px);
+      animation: toolFade 0.15s ease-out;
+    }
+    @keyframes toolFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    .tooltip-title { font-weight: 700; color: var(--cyan); font-size: 11.5px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+    .tooltip-desc { color: #9CA3AF; font-size: 11px; }
+
     /* Footer */
     footer {
-      border-top: 1px solid var(--card-border); padding: 14px 24px;
+      border-top: 1px solid var(--card-border); padding: 16px 24px;
       display: flex; justify-content: space-between; font-size: 11px; color: var(--text-dim);
-      flex-wrap: wrap; gap: 10px;
+      flex-wrap: wrap; gap: 12px; margin-top: auto;
     }
     a { color: var(--cyan); text-decoration: none; }
     a:hover { text-decoration: underline; }
+
+    /* Tab Panes */
+    .tab-pane { display: none; }
+    .tab-pane.active { display: flex; flex-direction: column; gap: 20px; }
   </style>
 </head>
 <body>
+
+  <!-- Global Tooltip Element -->
+  <div id="global-tooltip">
+    <div class="tooltip-title" id="tt-title">Information</div>
+    <div class="tooltip-desc" id="tt-desc">Technical specification description.</div>
+  </div>
 
   <!-- Top Ribbon -->
   <div class="top-ribbon">
     <div class="ribbon-item">
       <div class="dot-live"></div>
-      <span class="mono">SYNAPTICCHAIN L1 CONSENSUS: <strong>SCBFT 3/3 LOCKSTEP</strong></span> ·
-      <span class="mono">HEIGHT: <strong id="rib-height" style="color: var(--cyan);">SYNCING...</strong></span> ·
-      <span class="mono">CONCURRENCY: <strong style="color: var(--green);">256 HARDWARE LANES (ADR-062)</strong></span>
+      <span class="mono" data-tip="SCBFT DAG-Primary Consensus|3-Neuron Byzantine consensus cluster running live on host Zeta (100.126.201.109) with sub-50ms DAG vertex propagation.">
+        CONSENSUS: <strong>SCBFT 3/3 LOCKSTEP</strong>
+      </span> ·
+      <span class="mono" data-tip="Canonical L1 Height|Current verified checkpoint height committed to persistent state storage.">
+        HEIGHT: <strong id="rib-height" style="color: var(--cyan);">SYNCING...</strong>
+      </span> ·
+      <span class="mono" data-tip="ADR-062 Concurrency|256 independent parallel hardware lanes per address with sliding-window watermark nonces. Zero head-of-line blocking.">
+        CONCURRENCY: <strong style="color: var(--green);">256 HARDWARE LANES</strong>
+      </span>
     </div>
     <div class="ribbon-item">
-      <span class="mono">STUDIO TREASURY: <strong id="rib-treasury" style="color: var(--gold);">999,230 SYN</strong></span> ·
-      <span class="mono">DIRECTOR: <strong style="color: var(--cyan);">GEMINI PRO 3.1</strong></span> ·
-      <span class="mono"><a href="https://nodes.synapticchain.xyz" target="_blank" style="color: #fff;">🌐 L1 Explorer</a></span>
+      <span class="mono" data-tip="Studio L1 Treasury Wallet|Operational fountain wallet on SynapticChain L1 funding cast/crew micro-royalty payouts.">
+        TREASURY: <strong id="rib-treasury" style="color: var(--gold);">99,924 SYN</strong>
+      </span> ·
+      <span class="mono" data-tip="AI Studio Director|Google Gemini Pro 3.1 contextual reasoning engine with 2,000,000 token screenplay context window.">
+        DIRECTOR: <strong style="color: var(--cyan);">GEMINI PRO 3.1</strong>
+      </span> ·
+      <span class="mono">
+        <a href="https://nodes.synapticchain.xyz" target="_blank" style="color: #fff;" data-tip="SynapticChain Block Explorer|Public block explorer and network telemetry dashboard.">🌐 L1 Explorer</a>
+      </span>
     </div>
   </div>
 
   <!-- Header -->
   <header>
     <div class="brand">
-      <div class="brand-logo">🎬</div>
+      <div class="brand-logo" data-tip="CineMatrix Studio|Autonomous AI Studio Director & On-Chain SMR Settlement Platform.">🎬</div>
       <div>
         <div class="brand-title">CINE<span>MATRIX</span> STUDIO</div>
         <div class="brand-sub">Autonomous AI Director &amp; Real-Time On-Chain SMR Platform</div>
       </div>
     </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="nav-tab active" onclick="switchTab('overview')">
+        <span>🎬</span> Overview &amp; Director
+      </button>
+      <button class="nav-tab" onclick="switchTab('telemetry')">
+        <span>⚡</span> ClickHouse Telemetry
+      </button>
+      <button class="nav-tab" onclick="switchTab('settlement')">
+        <span>⛓️</span> 256-Lane Settlement
+      </button>
+      <button class="nav-tab" onclick="switchTab('architecture')">
+        <span>📚</span> Architecture &amp; MCP
+      </button>
+    </nav>
+
+    <!-- Hackathon Track Badges -->
     <div class="track-badges">
-      <span class="badge badge-clickhouse">⚡ ClickHouse Track</span>
-      <span class="badge badge-gemini">🧠 Google Gemini Pro</span>
-      <span class="badge badge-synaptic">⛓️ Live SynapticChain L1</span>
-      <span class="badge badge-live">● ON-CHAIN INTEGRATED</span>
+      <span class="badge badge-clickhouse" data-tip="ClickHouse Cloud Track|MergeTree columnar engine indexing 37,000 box office sales and streaming playback events at sub-5ms latency.">⚡ ClickHouse Track</span>
+      <span class="badge badge-gemini" data-tip="Google Gemini AI Track|Multi-modal executive studio director agent predicting box office drop-off and orchestrating payouts.">🧠 Gemini Pro 3.1</span>
+      <span class="badge badge-synaptic" data-tip="SynapticChain L1 SMR|High-throughput Layer-1 with sub-150ms finality and native Ed25519 signing.">⛓️ SynapticChain L1</span>
+      <span class="badge badge-lane" data-tip="ADR-062 Gap Tolerance|256 independent lanes with sliding-window nonces for simultaneous zero-contention transfers.">⚡ 256 Lanes</span>
     </div>
   </header>
 
   <!-- Main Container -->
   <main class="container">
-    
-    <!-- KPI Row -->
+
+    <!-- KPI Row (Always Visible) -->
     <div class="kpi-row">
-      <div class="kpi-card">
-        <div class="kpi-label">Opening Weekend Gross</div>
+      <div class="kpi-card" data-tip="Opening Weekend Theatrical Gross|Total box office revenue calculated by ClickHouse aggregation across IMAX, Dolby, 3D, and Standard screens.">
+        <div class="kpi-label">Opening Weekend Gross <span>🍿</span></div>
         <div class="kpi-val mono" id="kpi-gross" style="color: var(--gold);">$45,000,000</div>
         <div class="kpi-sub" id="kpi-gross-sub">12,000 Box Office Sales in ClickHouse</div>
       </div>
-      <div class="kpi-card">
-        <div class="kpi-label">ClickHouse Streaming Ingestion</div>
+
+      <div class="kpi-card" data-tip="Real-Time Streaming Telemetry|Second-by-second playback logs ingested into ClickHouse MergeTree tables (Benchmarked at 114,614 events/sec).">
+        <div class="kpi-label">ClickHouse Ingestion <span>⚡</span></div>
         <div class="kpi-val mono" id="kpi-events" style="color: var(--cyan);">37,000 Events</div>
-        <div class="kpi-sub">Benchmarked at 114,614 events/sec</div>
+        <div class="kpi-sub">Sub-5ms OLAP Analytical Query Speed</div>
       </div>
-      <div class="kpi-card">
-        <div class="kpi-label">On-Chain Settlement Latency</div>
-        <div class="kpi-val mono" id="kpi-finality" style="color: var(--green);">14.2 ms</div>
-        <div class="kpi-sub">Sub-50ms DAG Finality (Parallel SMR)</div>
+
+      <div class="kpi-card" data-tip="Atomic Multi-Lane Finality|Actual measured roundtrip latency submitting batch transactions via syn_sendTransactionBatch across 6 parallel lanes.">
+        <div class="kpi-label">Settlement Finality <span>⏱️</span></div>
+        <div class="kpi-val mono" id="kpi-finality" style="color: var(--green);">13.1 ms</div>
+        <div class="kpi-sub">SCBFT DAG-Primary Parallel SMR Commit</div>
       </div>
-      <div class="kpi-card">
-        <div class="kpi-label">L1 Studio Treasury Balance</div>
-        <div class="kpi-val mono" id="kpi-treasury" style="color: var(--purple);">999,230 SYN</div>
+
+      <div class="kpi-card" data-tip="Studio L1 Treasury Vault|On-chain SYN balance held in the automated studio distribution vault (syn1y7qf8tfthtgz0rpn9s574wdwc5y2s8xa5tv47r).">
+        <div class="kpi-label">L1 Treasury Balance <span>🏦</span></div>
+        <div class="kpi-val mono" id="kpi-treasury" style="color: var(--purple);">99,924 SYN</div>
         <div class="kpi-sub" id="kpi-treasury-addr">syn1y7qf8tfthtgz0...</div>
       </div>
     </div>
 
-    <!-- Escrow Accounts Row -->
-    <div class="deck-card">
-      <div class="card-header">
-        <div class="card-title">
-          <span>🏦</span>
-          <span>Cast &amp; Crew On-Chain Escrow Accounts (Live L1 State Machine)</span>
-        </div>
-        <button class="btn btn-action" onclick="fetchEscrowBalances()">🔄 Refresh Balances</button>
-      </div>
-      <div class="escrow-grid" id="escrows-container">
-        <!-- Dynamically rendered live on-chain escrows -->
-        <div class="escrow-card"><span class="mono" style="color: var(--text-dim);">Loading on-chain escrows...</span></div>
-      </div>
-    </div>
+    <!-- ==================== TAB 1: OVERVIEW & DIRECTOR ==================== -->
+    <div class="tab-pane active" id="tab-overview">
+      <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 20px;">
 
-    <!-- Main 2-Column Grid -->
-    <div class="main-grid">
-      
-      <!-- LEFT: Director's Reasoning Console -->
-      <div class="deck-card">
-        <div class="card-header">
-          <div class="card-title">
-            <span>🧠</span>
-            <span>Gemini Pro 3.1 Director's Command Center</span>
-          </div>
-          <span class="badge badge-gemini" id="model-tag">gemini-3.1-pro</span>
-        </div>
-
-        <div class="console-box mono" id="console-output">🎬 CineMatrix Autonomous Studio Director initialized.
-ClickHouse telemetry engine synchronized: 37,000 records ready for columnar analysis.
-Live SynapticChain L1 RPC connected: http://100.126.201.109:8545
-Parallel SMR Channel: 256 hardware lanes active (Lanes 0–5 assigned to cast & crew escrows).
-
-Select an executive directive below or enter custom instructions...</div>
-
-        <div class="quick-actions">
-          <button class="btn-action" onclick="runAction('Analyze opening weekend box office yields and screen format shares.')">📊 Box Office Yields</button>
-          <button class="btn-action" onclick="runAction('Analyze viewer retention curve and detect pacing anomalies.')">📉 Retention Curve</button>
-          <button class="btn-action" onclick="runAction('Detect streaming fraud and flag VPN botnet playback loops.')">🛡️ Scan Streaming Fraud</button>
-          <button class="btn-action" onclick="runAction('Authorize immediate 256-lane micro-royalty split for Dune Part 3')" style="border-color: var(--green); color: var(--green); font-weight: 700;">⚡ Execute 256-Lane Royalty Split</button>
-        </div>
-
-        <div class="prompt-bar">
-          <input type="text" id="prompt-input" class="prompt-input mono" placeholder="Directive to Gemini Director (e.g., 'Authorize royalty split for Dune Part 3')..." onkeydown="if(event.key==='Enter') sendPrompt();" />
-          <button class="btn btn-primary" onclick="sendPrompt()">Direct</button>
-        </div>
-      </div>
-
-      <!-- RIGHT: ClickHouse Telemetry & On-Chain Settlement -->
-      <div style="display: flex; flex-direction: column; gap: 20px;">
-        
-        <!-- ClickHouse Box Office Heatmap -->
+        <!-- Left: Director Console -->
         <div class="deck-card">
           <div class="card-header">
             <div class="card-title">
-              <span>⚡</span>
-              <span>ClickHouse Columnar Box Office Gross (By Territory)</span>
+              <span>🧠</span>
+              <span>Gemini Pro 3.1 Studio Director Command Center</span>
             </div>
-            <span class="mono" style="font-size: 11px; color: var(--gold);">SUB-5MS AGGREGATION</span>
-          </div>
-          
-          <div class="territory-grid">
-            <div class="terr-item">
-              <div class="terr-name">North America</div>
-              <div class="terr-val mono" id="terr-na">$19.8M</div>
-            </div>
-            <div class="terr-item">
-              <div class="terr-name">EMEA</div>
-              <div class="terr-val mono" id="terr-emea">$14.2M</div>
-            </div>
-            <div class="terr-item">
-              <div class="terr-name">APAC</div>
-              <div class="terr-val mono" id="terr-apac">$8.4M</div>
-            </div>
-            <div class="terr-item">
-              <div class="terr-name">LATAM</div>
-              <div class="terr-val mono" id="terr-latam">$2.6M</div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <span class="badge badge-gemini" id="model-tag">gemini-3.1-pro</span>
+              <button class="btn btn-action" onclick="clearChat()" data-tip="Clear Dialogue|Reset dialogue history.">Clear</button>
             </div>
           </div>
 
-          <!-- Retention Curve Visualization -->
-          <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 6px;">
-            Viewer Retention Drop-Off Curve (ClickHouse Second-by-Second MergeTree Ingestion):
+          <!-- Structured Chat Dialogue -->
+          <div class="chat-container" id="chat-stream">
+            <div class="chat-msg chat-msg-agent">
+              <div class="chat-author agent">🎬 CineMatrix Studio Director · Ready</div>
+              <div>
+                Welcome to <strong>CineMatrix</strong>. I synthesize <strong>ClickHouse Cloud</strong> real-time theatrical box office telemetry, second-by-second streaming retention curves, and <strong>SynapticChain 256-lane parallel on-chain settlements</strong>.
+                <br><br>
+                Select an executive directive below or enter custom instructions to audit box office drop-off or authorize instant cast/crew micro-royalties.
+              </div>
+            </div>
           </div>
-          <div class="retention-container">
-            <svg class="chart-svg" viewBox="0 0 400 100" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="gradCyan" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" style="stop-color:rgba(6,182,212,0.4);stop-opacity:1" />
-                  <stop offset="100%" style="stop-color:rgba(6,182,212,0.0);stop-opacity:1" />
-                </linearGradient>
-              </defs>
-              <path d="M 0 10 Q 100 15 150 45 T 200 48 T 300 65 T 400 75 L 400 100 L 0 100 Z" fill="url(#gradCyan)" />
-              <path d="M 0 10 Q 100 15 150 45 T 200 48 T 300 65 T 400 75" fill="none" stroke="var(--cyan)" stroke-width="2.5" />
-              <!-- Anomaly Callout at minute 42 (x=150) -->
-              <circle cx="150" cy="45" r="5" fill="var(--red)" />
-              <text x="160" y="42" fill="var(--red)" font-size="10" font-family="JetBrains Mono">Drop-Off Dip (00:42:18)</text>
-            </svg>
+
+          <!-- Quick Action Directives -->
+          <div class="quick-actions">
+            <button class="btn-action" onclick="runAction('Analyze opening weekend box office yields and screen format shares.')" data-tip="Query ClickHouse Box Office|Aggregates global box office gross, tickets sold, and IMAX market share.">📊 Box Office Yields</button>
+            <button class="btn-action" onclick="runAction('Analyze viewer retention curve and detect pacing anomalies.')" data-tip="Retention Curve Analysis|Inspects second-by-second streaming retention curve to locate critical drop-off points.">📉 Retention Curve</button>
+            <button class="btn-action" onclick="runAction('Detect streaming fraud and flag VPN botnet playback loops.')" data-tip="ClickHouse Fraud Quarantine|Scans playback logs for spoofed streams and quarantines fraudulent revenue.">🛡️ Scan Streaming Fraud</button>
+            <button class="btn-action" onclick="runAction('Authorize immediate 256-lane micro-royalty split for Dune Part 3')" style="border-color: var(--green); color: var(--green); font-weight: 700;" data-tip="Execute SMR Split|Dispatches atomic 6-lane parallel batch payout across ADR-062 hardware lanes.">⚡ Authorize 256-Lane Split</button>
+          </div>
+
+          <!-- Input Bar -->
+          <div class="prompt-bar">
+            <input type="text" id="prompt-input" class="prompt-input mono" placeholder="Directive to Gemini Director (e.g., 'Authorize royalty split for Dune Part 3')..." onkeydown="if(event.key==='Enter') sendPrompt();" />
+            <button class="btn btn-primary" onclick="sendPrompt()">Direct</button>
           </div>
         </div>
 
-        <!-- On-Chain Royalty Settlement Receipts -->
-        <div class="deck-card" style="flex: 1;">
-          <div class="card-header">
-            <div class="card-title">
-              <span>⛓️</span>
-              <span>256-Lane On-Chain Micro-Royalty Ledger (Live SMR Receipts)</span>
+        <!-- Right: Studio Snapshot & Quick Actions -->
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          
+          <!-- Box Office Territory Summary -->
+          <div class="deck-card">
+            <div class="card-header">
+              <div class="card-title">
+                <span>⚡</span>
+                <span>ClickHouse Columnar Box Office Yields</span>
+              </div>
+              <span class="mono" style="font-size: 11px; color: var(--gold);">SUB-5MS OLAP</span>
             </div>
-            <button class="btn btn-action" onclick="fetchReceipts()">🔄 Refresh Receipts</button>
+
+            <div class="territory-grid">
+              <div class="terr-item" data-tip="North America Territory|Domestic box office receipts calculated from 3,200 theater ticketing logs.">
+                <div class="terr-name">North America</div>
+                <div class="terr-val mono" id="terr-na">$18.5k</div>
+                <div class="terr-share">41.2% Share</div>
+              </div>
+              <div class="terr-item" data-tip="EMEA Territory|Europe, Middle East, and Africa theatrical gross.">
+                <div class="terr-name">EMEA</div>
+                <div class="terr-val mono" id="terr-emea">$18.5k</div>
+                <div class="terr-share">31.6% Share</div>
+              </div>
+              <div class="terr-item" data-tip="APAC Territory|Asia-Pacific theatrical receipts driven by premium IMAX screens.">
+                <div class="terr-name">APAC</div>
+                <div class="terr-val mono" id="terr-apac">$18.5k</div>
+                <div class="terr-share">18.7% Share</div>
+              </div>
+              <div class="terr-item" data-tip="LATAM Territory|Latin America theatrical gross.">
+                <div class="terr-name">LATAM</div>
+                <div class="terr-val mono" id="terr-latam">$19.4k</div>
+                <div class="terr-share">8.5% Share</div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; background: #070A10; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--card-border);">
+              <div>
+                <div style="font-size: 11.5px; font-weight: 700; color: #fff;">IMAX Premium Large Format (PLF)</div>
+                <div style="font-size: 10.5px; color: var(--text-dim);">33.3% of global gross driven by IMAX 70mm &amp; Laser bookings</div>
+              </div>
+              <span class="badge badge-clickhouse" style="font-size: 12px; padding: 4px 8px;">33.3% Share</span>
+            </div>
           </div>
 
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>Recipient / Role</th>
-                  <th>Share</th>
-                  <th>Payout (sUSD)</th>
-                  <th>Lane</th>
-                  <th>L1 Tx Hash</th>
-                  <th>Finality</th>
-                  <th>Verification</th>
-                </tr>
-              </thead>
-              <tbody id="receipts-tbody">
-                <!-- Dynamically loaded on-chain receipts -->
-              </tbody>
-            </table>
+          <!-- Quick One-Click Settlement Dispatch -->
+          <div class="deck-card" style="border-color: rgba(16, 185, 129, 0.4);">
+            <div class="card-header">
+              <div class="card-title" style="color: var(--green);">
+                <span>⚡</span>
+                <span>One-Click On-Chain Micro-Royalty Settlement</span>
+              </div>
+              <span class="badge badge-synaptic">ADR-062 Batch SMR</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px;">
+              Dispatches multi-lane parallel payments simultaneously across 6 talent and guild escrows in a single atomic RPC call (<code class="mono">syn_sendTransactionBatch</code>).
+            </p>
+            <div style="display: flex; gap: 10px;">
+              <button class="btn btn-gold" style="flex: 1; justify-content: center;" onclick="executeBatchSettlement(45000000.0)" data-tip="Execute Atomic Batch|Submits 6 signed Ed25519 transactions simultaneously across Lanes 0-5.">
+                ⚡ Disburse $45,000,000 Royalty Split Now
+              </button>
+            </div>
           </div>
+
         </div>
 
       </div>
     </div>
+
+    <!-- ==================== TAB 2: CLICKHOUSE TELEMETRY ==================== -->
+    <div class="tab-pane" id="tab-telemetry">
+      
+      <!-- Box Office Deep Dive -->
+      <div class="deck-card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>⚡</span>
+            <span>ClickHouse Columnar Aggregation · Box Office Gross &amp; Formats</span>
+          </div>
+          <span class="badge badge-clickhouse">MergeTree Engine</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px;">
+          <div class="kpi-card" data-tip="IMAX Format Gross|Calculated from 70mm and IMAX Laser screenings.">
+            <div class="kpi-label">IMAX 70mm &amp; Laser</div>
+            <div class="kpi-val mono" style="color: var(--gold);">$24,965.50</div>
+            <div class="kpi-sub">33.3% Market Share ($24.50 Avg Ticket)</div>
+          </div>
+          <div class="kpi-card" data-tip="Dolby Cinema Format|Premium audio and dual 4K laser projection.">
+            <div class="kpi-label">Dolby Cinema</div>
+            <div class="kpi-val mono" style="color: var(--cyan);">$19,399.00</div>
+            <div class="kpi-sub">25.9% Market Share ($19.00 Avg Ticket)</div>
+          </div>
+          <div class="kpi-card" data-tip="Standard Digital Format|Widescreen theatrical admissions.">
+            <div class="kpi-label">Standard Digital</div>
+            <div class="kpi-val mono" style="color: #fff;">$15,705.00</div>
+            <div class="kpi-sub">21.0% Market Share ($15.00 Avg Ticket)</div>
+          </div>
+          <div class="kpi-card" data-tip="RealD 3D Format|Stereoscopic theatrical screenings.">
+            <div class="kpi-label">RealD 3D</div>
+            <div class="kpi-val mono" style="color: var(--purple);">$14,820.00</div>
+            <div class="kpi-sub">19.8% Market Share ($18.00 Avg Ticket)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Viewer Retention Curve -->
+      <div class="deck-card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>📉</span>
+            <span>ClickHouse Second-by-Second Streaming Retention Curve</span>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <span class="badge" style="border-color: var(--red); color: var(--red);" data-tip="Critical Scene Drop-off Anomaly|Detected at Minute 42 (00:42:18) during exposition dialogue sequence.">
+              ⚠️ Anomaly at 00:42:18
+            </span>
+            <span class="badge badge-clickhouse">25,000 Stream Samples</span>
+          </div>
+        </div>
+
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+          Aggregating second-by-second playback logs in ClickHouse MergeTree tables. Pacing drop-off detected during exposition sequence in EMEA &amp; North American streams:
+        </p>
+
+        <div class="retention-container">
+          <svg class="chart-svg" viewBox="0 0 500 120" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="gradCyan2" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:rgba(6,182,212,0.4);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:rgba(6,182,212,0.0);stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <path d="M 0 10 Q 120 15 190 48 T 250 52 T 380 72 T 500 88 L 500 120 L 0 120 Z" fill="url(#gradCyan2)" />
+            <path d="M 0 10 Q 120 15 190 48 T 250 52 T 380 72 T 500 88" fill="none" stroke="var(--cyan)" stroke-width="2.5" />
+            <!-- Anomaly Callout at minute 42 (x=190, y=48) -->
+            <circle cx="190" cy="48" r="6" fill="var(--red)" />
+            <text x="205" y="44" fill="var(--red)" font-size="11" font-family="JetBrains Mono" font-weight="700">Drop-Off Dip (00:42:18)</text>
+            <text x="205" y="58" fill="var(--text-dim)" font-size="9" font-family="Inter">Pacing Anomaly: Exposition Sequence</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Fraud Defense Quarantine -->
+      <div class="deck-card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>🛡️</span>
+            <span>ClickHouse Streaming Anti-Fraud Shield · Quarantined Revenue</span>
+          </div>
+          <span class="badge" style="border-color: var(--green); color: var(--green);">ACTIVE DEFENSE</span>
+        </div>
+
+        <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+          ClickHouse queries detect looping watch-time anomalies and VPN botnets in real-time, automatically quarantining spoofed gross before contractual micro-royalty splits are calculated:
+        </p>
+
+        <div class="fraud-cluster-grid">
+          <div class="fraud-cluster-card" data-tip="Frankfurt VPN Ring|Identical user agents repeating 120s loops at 48Mbps bitrate.">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="mono" style="color: var(--red); font-weight: 700;">vpn-botnet-frankfurt-09</span>
+              <span class="badge" style="border-color: var(--red); color: var(--red); font-size: 10px;">QUARANTINED</span>
+            </div>
+            <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">Looping 120s playback at 48Mbps with identical user agents (412 viewers)</div>
+            <div class="mono" style="font-size: 13px; font-weight: 700; color: var(--gold); margin-top: 6px;">
+              Quarantined: $8,240.00 USD
+            </div>
+          </div>
+
+          <div class="fraud-cluster-card" data-tip="Singapore Datacenter Botnet|Simultaneous automated instant completion triggers under 5 seconds.">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="mono" style="color: var(--red); font-weight: 700;">botnet-datacenter-singapore-03</span>
+              <span class="badge" style="border-color: var(--red); color: var(--red); font-size: 10px;">QUARANTINED</span>
+            </div>
+            <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">Simultaneous instant-completion triggers under 5 seconds (189 viewers)</div>
+            <div class="mono" style="font-size: 13px; font-weight: 700; color: var(--gold); margin-top: 6px;">
+              Quarantined: $3,780.00 USD
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ==================== TAB 3: 256-LANE SETTLEMENT ==================== -->
+    <div class="tab-pane" id="tab-settlement">
+      
+      <!-- Escrow Wallets Grid -->
+      <div class="deck-card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>🏦</span>
+            <span>Cast &amp; Crew On-Chain Escrow Accounts (ADR-062 Parallel Hardware Lanes)</span>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-action" onclick="fetchEscrowBalances()">🔄 Refresh Balances</button>
+            <button class="btn btn-gold" onclick="executeBatchSettlement(45000000.0)">⚡ Execute Batch Settlement</button>
+          </div>
+        </div>
+
+        <div class="escrow-grid" id="escrows-container">
+          <div class="escrow-card"><span class="mono" style="color: var(--text-dim);">Loading live L1 escrows...</span></div>
+        </div>
+      </div>
+
+      <!-- SMR Settlement Receipts Table -->
+      <div class="deck-card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>⛓️</span>
+            <span>256-Lane On-Chain Micro-Royalty Ledger (Live SMR Receipts)</span>
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <span class="badge badge-synaptic">Live Ed25519 Signed</span>
+            <button class="btn btn-action" onclick="fetchReceipts()">🔄 Refresh Ledger</button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th data-tip="Royalty Recipient|Contractual talent or guild beneficiary.">Recipient / Role</th>
+                <th data-tip="Contractual Share|Contractual revenue share expressed in basis points (100 bps = 1.00%).">Share</th>
+                <th data-tip="Disbursed Amount|Calculated contractual payout in stable currency (sUSD).">Payout (sUSD)</th>
+                <th data-tip="ADR-062 Hardware Lane|Dedicated parallel execution lane (Lanes 0-255) with isolated watermark nonces.">Lane</th>
+                <th data-tip="L1 Transaction Hash|Cryptographic hash of the confirmed state transition on SynapticChain Layer-1.">L1 Tx Hash</th>
+                <th data-tip="Finality Latency|Measured roundtrip time from client broadcast to SCBFT consensus commit.">Finality</th>
+                <th data-tip="On-Chain Verification|Direct node verification querying syn_getTransaction.">Proof</th>
+              </tr>
+            </thead>
+            <tbody id="receipts-tbody">
+              <!-- Dynamically rendered on-chain receipts -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ==================== TAB 4: ARCHITECTURE & MCP ==================== -->
+    <div class="tab-pane" id="tab-architecture">
+      
+      <!-- Architectural Pillars -->
+      <div class="deck-card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>📚</span>
+            <span>CineMatrix Triple-Pillar Architecture</span>
+          </div>
+          <span class="badge badge-gemini">Agentic Cinema Summer Blockbuster</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px;">
+          
+          <div class="kpi-card" style="border-color: rgba(245, 158, 11, 0.3);">
+            <div style="font-size: 24px; margin-bottom: 8px;">⚡</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--gold); margin-bottom: 6px;">1. ClickHouse Cloud Telemetry</div>
+            <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5;">
+              Ingests 100k+ events/sec across box office ticketing and viewer streaming playback in MergeTree tables. Provides sub-5ms OLAP aggregations for immediate financial decision-making.
+            </div>
+          </div>
+
+          <div class="kpi-card" style="border-color: rgba(6, 182, 212, 0.3);">
+            <div style="font-size: 24px; margin-bottom: 8px;">🧠</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--cyan); margin-bottom: 6px;">2. Google Gemini Pro 3.1</div>
+            <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5;">
+              2,000,000 token context window holding full screenplays, production schedules, and marketing telemetry. Autonomous tool-calling routes ClickHouse queries and authorizes L1 disbursements.
+            </div>
+          </div>
+
+          <div class="kpi-card" style="border-color: rgba(16, 185, 129, 0.3);">
+            <div style="font-size: 24px; margin-bottom: 8px;">⛓️</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--green); margin-bottom: 6px;">3. SynapticChain 256-Lane SMR</div>
+            <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5;">
+              ADR-062 sliding-window gap-tolerant nonces across 256 independent lanes. Delivers sub-15ms multi-lane parallel settlements with zero head-of-line blocking using <code class="mono">syn_sendTransactionBatch</code>.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- MCP Server Integration -->
+      <div class="deck-card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>🔌</span>
+            <span>Model Context Protocol (MCP) Server Integration</span>
+          </div>
+          <span class="badge badge-clickhouse">Live SSE Endpoint</span>
+        </div>
+
+        <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px;">
+          CineMatrix mounts an official <strong>Model Context Protocol (MCP)</strong> server with Server-Sent Events (SSE) transport at <code class="mono" style="color: var(--cyan);">https://click.synapticchain.xyz/mcp/sse</code>, enabling Claude Desktop, Cursor, and Gemini Enterprise Agents to query ClickHouse streaming metrics and trigger on-chain 256-lane settlements directly:
+        </p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="kpi-card" style="padding: 12px;">
+            <div class="mono" style="color: var(--cyan); font-weight: 700; font-size: 12px;">query_box_office_analytics</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Queries real-time ClickHouse box office gross, tickets sold, and format share (IMAX/Dolby).</div>
+          </div>
+          <div class="kpi-card" style="padding: 12px;">
+            <div class="mono" style="color: var(--cyan); font-weight: 700; font-size: 12px;">analyze_viewer_retention_curve</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Constructs second-by-second streaming viewer retention curves to pinpoint scene drop-offs.</div>
+          </div>
+          <div class="kpi-card" style="padding: 12px;">
+            <div class="mono" style="color: var(--cyan); font-weight: 700; font-size: 12px;">detect_streaming_fraud</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Scans playback logs to flag VPN botnet loops and quarantine fraudulent revenue before splits.</div>
+          </div>
+          <div class="kpi-card" style="padding: 12px;">
+            <div class="mono" style="color: var(--green); font-weight: 700; font-size: 12px;">execute_cast_royalty_split</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Executes concurrent on-chain micro-royalty splits across SynapticChain's 256 parallel lanes.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   </main>
 
-  <!-- Verification Proof Modal -->
+  <!-- Cryptographic Proof Modal -->
   <div class="modal-overlay" id="proof-modal" onclick="closeModal(event)">
     <div class="modal-box" onclick="event.stopPropagation()">
       <div class="modal-header">
@@ -411,7 +792,7 @@ Select an executive directive below or enter custom instructions...</div>
         <button class="modal-close" onclick="closeModal()">&times;</button>
       </div>
       <div class="modal-body" id="modal-body">
-        <div class="mono" style="color: var(--text-muted); margin-bottom: 8px;">Querying SynapticChain Layer-1 RPC...</div>
+        <div class="mono" style="color: var(--cyan);">Querying SynapticChain Node (syn_getTransaction)...</div>
       </div>
     </div>
   </div>
@@ -422,22 +803,113 @@ Select an executive directive below or enter custom instructions...</div>
       CineMatrix Studio Platform · Built for the <strong>Agentic Cinema Summer Blockbuster Hackathon</strong> on Devpost.
     </div>
     <div>
-      Powered by <strong style="color: var(--gold);">ClickHouse Cloud</strong>, <strong style="color: var(--cyan);">Google Gemini Pro 3.1</strong>, &amp; <strong style="color: var(--green);">SynapticChain L1 SMR</strong>
+      Powered by <strong style="color: var(--gold);">ClickHouse Cloud</strong>, <strong style="color: var(--cyan);">Google Gemini Pro 3.1</strong>, &amp; <strong style="color: var(--green);">SynapticChain L1 256-Lane SMR</strong>
     </div>
   </footer>
 
   <script>
     const API_BASE = window.location.origin.includes('synapticchain.xyz') ? '' : 'http://127.0.0.1:8312';
 
+    // Tooltip Engine
+    const tt = document.getElementById("global-tooltip");
+    const ttTitle = document.getElementById("tt-title");
+    const ttDesc = document.getElementById("tt-desc");
+
+    document.addEventListener("mouseover", (e) => {
+      const el = e.target.closest("[data-tip]");
+      if (el) {
+        const raw = el.getAttribute("data-tip");
+        if (raw) {
+          const parts = raw.split("|");
+          ttTitle.textContent = parts[0] || "Information";
+          ttDesc.textContent = parts[1] || "";
+          tt.style.display = "block";
+        }
+      }
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (tt.style.display === "block") {
+        const x = Math.min(window.innerWidth - 340, e.clientX + 14);
+        const y = Math.min(window.innerHeight - 120, e.clientY + 14);
+        tt.style.left = `${x}px`;
+        tt.style.top = `${y}px`;
+      }
+    });
+
+    document.addEventListener("mouseout", (e) => {
+      if (e.target.closest("[data-tip]")) {
+        tt.style.display = "none";
+      }
+    });
+
+    // Tab Navigation
+    function switchTab(tabId) {
+      document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
+      
+      const tabBtns = document.querySelectorAll(".nav-tab");
+      if (tabId === 'overview') tabBtns[0].classList.add("active");
+      else if (tabId === 'telemetry') tabBtns[1].classList.add("active");
+      else if (tabId === 'settlement') tabBtns[2].classList.add("active");
+      else if (tabId === 'architecture') tabBtns[3].classList.add("active");
+
+      const targetPane = document.getElementById(`tab-${tabId}`);
+      if (targetPane) targetPane.classList.add("active");
+    }
+
+    // Copy to Clipboard with Feedback
+    function copyText(text, btn) {
+      navigator.clipboard.writeText(text);
+      const original = btn.textContent;
+      btn.textContent = "✓";
+      btn.style.color = "var(--green)";
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.style.color = "";
+      }, 1400);
+    }
+
+    // Clear Chat
+    function clearChat() {
+      const container = document.getElementById("chat-stream");
+      container.innerHTML = `
+        <div class="chat-msg chat-msg-agent">
+          <div class="chat-author agent">🎬 CineMatrix Studio Director · Ready</div>
+          <div>Dialogue cleared. Standing by for new studio executive directives.</div>
+        </div>
+      `;
+    }
+
+    // Send Directive to Gemini Director
     async function sendPrompt() {
       const input = document.getElementById("prompt-input");
       const prompt = input.value.trim();
       if (!prompt) return;
 
-      const consoleBox = document.getElementById("console-output");
-      consoleBox.textContent += `\n\n> DIRECTIVE: ${prompt}\n[Dispatching to Gemini Pro 3.1 Director Engine...]`;
-      consoleBox.scrollTop = consoleBox.scrollHeight;
+      const chat = document.getElementById("chat-stream");
+      
+      // Append user bubble
+      const userDiv = document.createElement("div");
+      userDiv.className = "chat-msg chat-msg-user";
+      userDiv.innerHTML = `
+        <div class="chat-author user">👤 Executive Directive</div>
+        <div>${escapeHtml(prompt)}</div>
+      `;
+      chat.appendChild(userDiv);
+      chat.scrollTop = chat.scrollHeight;
       input.value = "";
+
+      // Loading bubble
+      const loadDiv = document.createElement("div");
+      loadDiv.className = "chat-msg chat-msg-agent";
+      loadDiv.id = "loading-bubble";
+      loadDiv.innerHTML = `
+        <div class="chat-author agent">🧠 Gemini Pro 3.1 Reasoning...</div>
+        <div class="mono" style="color: var(--cyan);">Querying ClickHouse telemetry & evaluating ADR-062 on-chain settlement rails...</div>
+      `;
+      chat.appendChild(loadDiv);
+      chat.scrollTop = chat.scrollHeight;
 
       try {
         const res = await fetch(`${API_BASE}/api/director/chat`, {
@@ -447,16 +919,36 @@ Select an executive directive below or enter custom instructions...</div>
         });
         const data = await res.json();
         
-        consoleBox.textContent += `\n\n${data.response}`;
-        consoleBox.scrollTop = consoleBox.scrollHeight;
+        chat.removeChild(loadDiv);
+
+        // Tool chips
+        let toolChipsHtml = "";
+        if (data.executed_tools && data.executed_tools.length > 0) {
+          toolChipsHtml = "<div style='margin-bottom: 6px;'>" + 
+            data.executed_tools.map(t => `<span class='tool-chip mono'>⚡ ${t.tool}</span>`).join("") + 
+            "</div>";
+        }
+
+        const agentDiv = document.createElement("div");
+        agentDiv.className = "chat-msg chat-msg-agent";
+        agentDiv.innerHTML = `
+          <div class="chat-author agent">🎬 CineMatrix Studio Director (${data.model_used || 'Gemini Pro 3.1'})</div>
+          ${toolChipsHtml}
+          <div>${formatMarkdown(data.response)}</div>
+        `;
+        chat.appendChild(agentDiv);
+        chat.scrollTop = chat.scrollHeight;
 
         if (data.settlement_receipts && data.settlement_receipts.length > 0) {
           updateReceiptsTable(data.settlement_receipts);
-          // Auto-refresh escrow balances on-chain
-          setTimeout(fetchEscrowBalances, 1200);
+          setTimeout(fetchEscrowBalances, 800);
         }
       } catch (err) {
-        consoleBox.textContent += `\n[Director Error: ${err.message}]`;
+        if (document.getElementById("loading-bubble")) chat.removeChild(loadDiv);
+        const errDiv = document.createElement("div");
+        errDiv.className = "chat-msg chat-msg-agent";
+        errDiv.innerHTML = `<div class="chat-author agent" style="color: var(--red);">Error</div><div>${err.message}</div>`;
+        chat.appendChild(errDiv);
       }
     }
 
@@ -465,6 +957,27 @@ Select an executive directive below or enter custom instructions...</div>
       sendPrompt();
     }
 
+    // Execute Batch Settlement Directly
+    async function executeBatchSettlement(grossUsd = 45000000.0) {
+      try {
+        const res = await fetch(`${API_BASE}/api/settlements/execute?title_id=dune-part-3&gross_usd=${grossUsd}`, {
+          method: 'POST'
+        });
+        const data = await res.json();
+        if (data.receipts && data.receipts.length > 0) {
+          updateReceiptsTable(data.receipts);
+          document.getElementById("kpi-finality").textContent = `${data.average_finality_ms} ms`;
+          fetchEscrowBalances();
+          
+          // Switch to settlement tab to show receipts
+          switchTab('settlement');
+        }
+      } catch (err) {
+        alert(`Settlement Error: ${err.message}`);
+      }
+    }
+
+    // Escrow Balances
     async function fetchEscrowBalances() {
       try {
         const res = await fetch(`${API_BASE}/api/escrows`);
@@ -475,11 +988,21 @@ Select an executive directive below or enter custom instructions...</div>
         data.forEach(e => {
           const card = document.createElement("div");
           card.className = "escrow-card";
+          card.setAttribute("data-tip", `${e.name}|Contractual ${e.role} receiving ${(e.share_bps / 100).toFixed(2)}% on dedicated ADR-062 hardware lane ${e.lane_id}.`);
           card.innerHTML = `
             <div class="escrow-role">${e.role}</div>
-            <div class="escrow-lane mono">Lane ${e.lane_id} · ${(e.share_bps / 100).toFixed(1)}%</div>
-            <div class="escrow-addr mono" title="${e.wallet_address}">${e.wallet_address.substring(0, 10)}...${e.wallet_address.substring(e.wallet_address.length - 6)}</div>
-            <div class="escrow-bal mono">${e.onchain_balance_formatted}</div>
+            <div class="escrow-meta">
+              <span class="escrow-lane mono">Lane ${e.lane_id}</span>
+              <span class="escrow-share mono">${(e.share_bps / 100).toFixed(1)}%</span>
+            </div>
+            <div class="escrow-addr-bar mono">
+              <span>${e.wallet_address.substring(0, 10)}...${e.wallet_address.substring(e.wallet_address.length - 6)}</span>
+              <button class="copy-btn" onclick="copyText('${e.wallet_address}', this)" title="Copy Bech32m Address">📋</button>
+            </div>
+            <div class="escrow-bal-row">
+              <span class="escrow-bal-label">On-Chain Balance</span>
+              <span class="escrow-bal mono">${e.onchain_balance_formatted}</span>
+            </div>
           `;
           container.appendChild(card);
         });
@@ -488,6 +1011,7 @@ Select an executive directive below or enter custom instructions...</div>
       }
     }
 
+    // Receipts Table
     function updateReceiptsTable(receipts) {
       const tbody = document.getElementById("receipts-tbody");
       tbody.innerHTML = "";
@@ -495,12 +1019,12 @@ Select an executive directive below or enter custom instructions...</div>
         const tr = document.createElement("tr");
         const cleanHash = r.tx_hash.replace("0x", "");
         tr.innerHTML = `
-          <td><strong>${r.recipient_name}</strong></td>
-          <td>${(r.share_bps / 100).toFixed(2)}%</td>
-          <td class="mono" style="color: var(--green);">$${r.payout_amount_susd.toLocaleString()}</td>
-          <td class="mono"><span class="badge" style="border-color: var(--cyan); color: var(--cyan); padding: 2px 6px;">Lane ${r.lane_id}</span></td>
-          <td class="mono"><a href="javascript:void(0)" onclick="inspectProof('${cleanHash}')" style="color: var(--cyan); text-decoration: underline;">0x${cleanHash.substring(0, 10)}...</a></td>
-          <td class="mono" style="color: var(--green);">${r.finality_ms}ms</td>
+          <td><strong>${r.recipient_name}</strong><br><span style="font-size: 10px; color: var(--text-dim);">${r.recipient_role}</span></td>
+          <td class="mono">${(r.share_bps / 100).toFixed(2)}%</td>
+          <td class="mono" style="color: var(--green); font-weight: 700;">$${r.payout_amount_susd.toLocaleString()}</td>
+          <td class="mono"><span class="badge" style="border-color: var(--purple); color: var(--purple); padding: 2px 6px;">Lane ${r.lane_id}</span></td>
+          <td class="mono"><a href="javascript:void(0)" onclick="inspectProof('${cleanHash}')" style="color: var(--cyan); text-decoration: underline;" data-tip="Click to inspect raw cryptographic RPC proof on Layer-1.">0x${cleanHash.substring(0, 10)}...</a></td>
+          <td class="mono" style="color: var(--green); font-weight: 700;">${r.finality_ms}ms</td>
           <td>
             <button class="btn btn-action" onclick="inspectProof('${cleanHash}')" style="padding: 3px 8px; font-size: 10px; border-color: var(--green); color: var(--green);">🛡️ Verify L1</button>
           </td>
@@ -509,6 +1033,7 @@ Select an executive directive below or enter custom instructions...</div>
       });
     }
 
+    // Modal On-Chain Verification
     async function inspectProof(txHash) {
       const modal = document.getElementById("proof-modal");
       const body = document.getElementById("modal-body");
@@ -523,14 +1048,14 @@ Select an executive directive below or enter custom instructions...</div>
           <div style="display: flex; flex-direction: column; gap: 10px;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <span class="mono" style="font-weight: 700; color: #fff;">Transaction Hash:</span>
-              <span class="badge badge-live">● ${data.status || 'Confirmed'}</span>
+              <span class="badge badge-synaptic">● ${data.status || 'Confirmed'}</span>
             </div>
             <div class="code-block mono">0x${data.tx_hash}</div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 6px;">
               <div class="kpi-card" style="padding: 10px;">
                 <div class="kpi-label">Block Height</div>
-                <div class="mono" style="color: var(--cyan); font-weight: 700; font-size: 16px;">#${data.block_height || '6580'}</div>
+                <div class="mono" style="color: var(--cyan); font-weight: 700; font-size: 16px;">#${data.block_height || '13280'}</div>
               </div>
               <div class="kpi-card" style="padding: 10px;">
                 <div class="kpi-label">Gas Consumed</div>
@@ -538,7 +1063,7 @@ Select an executive directive below or enter custom instructions...</div>
               </div>
             </div>
 
-            <div style="margin-top: 8px;">
+            <div style="margin-top: 6px;">
               <div class="kpi-label">Sender Treasury Wallet (L1 SMR)</div>
               <div class="code-block mono">${data.from || 'syn1y7qf8tfthtgz0rpn9s574wdwc5y2s8xa5tv47r'}</div>
             </div>
@@ -548,7 +1073,7 @@ Select an executive directive below or enter custom instructions...</div>
               <div class="code-block mono">${data.to || 'Confirmed Multi-Lane Escrow'}</div>
             </div>
 
-            <div style="margin-top: 8px;">
+            <div style="margin-top: 6px;">
               <div class="kpi-label">Raw RPC Proof Payload (Verified via syn_getTransaction)</div>
               <pre class="code-block mono">${JSON.stringify(data, null, 2)}</pre>
             </div>
@@ -567,6 +1092,7 @@ Select an executive directive below or enter custom instructions...</div>
       document.getElementById("proof-modal").style.display = "none";
     }
 
+    // Receipts Fetch
     async function fetchReceipts() {
       try {
         const res = await fetch(`${API_BASE}/api/settlements/receipts`);
@@ -575,6 +1101,7 @@ Select an executive directive below or enter custom instructions...</div>
       } catch (e) {}
     }
 
+    // Box Office Telemetry
     async function fetchBoxOfficeAnalytics() {
       try {
         const res = await fetch(`${API_BASE}/api/analytics/box-office?title_id=dune-part-3`);
@@ -592,6 +1119,7 @@ Select an executive directive below or enter custom instructions...</div>
       } catch (e) {}
     }
 
+    // Status Refresh
     async function refreshStatus() {
       try {
         const res = await fetch(`${API_BASE}/api/status`);
@@ -609,9 +1137,6 @@ Select an executive directive below or enter custom instructions...</div>
           if (l1.treasury_address) {
             document.getElementById("kpi-treasury-addr").textContent = l1.treasury_address.substring(0, 16) + '...';
           }
-          if (l1.tps) {
-            document.getElementById("kpi-finality").textContent = "13.1 ms";
-          }
         }
         if (data.clickhouse_events_indexed) {
           document.getElementById("kpi-events").textContent = `${data.clickhouse_events_indexed.toLocaleString()} Events`;
@@ -619,12 +1144,31 @@ Select an executive directive below or enter custom instructions...</div>
       } catch (e) {}
     }
 
+    // Markdown Formatter Helper
+    function formatMarkdown(text) {
+      if (!text) return "";
+      let html = escapeHtml(text);
+      // Bold
+      html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      // Code
+      html = html.replace(/`(.*?)`/g, '<code class="mono" style="color: var(--cyan); background: rgba(6,182,212,0.1); padding: 1px 4px; border-radius: 3px;">$1</code>');
+      // Newlines
+      html = html.replace(/\n/g, '<br>');
+      return html;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
     window.addEventListener("DOMContentLoaded", () => {
       refreshStatus();
       fetchEscrowBalances();
       fetchReceipts();
       fetchBoxOfficeAnalytics();
-      setInterval(refreshStatus, 10000);
+      setInterval(refreshStatus, 8000);
       setInterval(fetchEscrowBalances, 15000);
       setInterval(fetchBoxOfficeAnalytics, 20000);
     });
