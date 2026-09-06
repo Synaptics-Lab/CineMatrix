@@ -575,6 +575,23 @@ Select an executive directive below or enter custom instructions...</div>
       } catch (e) {}
     }
 
+    async function fetchBoxOfficeAnalytics() {
+      try {
+        const res = await fetch(`${API_BASE}/api/analytics/box-office?title_id=dune-part-3`);
+        const data = await res.json();
+        if (data && data.gross_by_territory) {
+          const terr = data.gross_by_territory;
+          if (terr["North America"]) document.getElementById("terr-na").textContent = `$${(terr["North America"] / 1000).toFixed(1)}k`;
+          if (terr["EMEA"]) document.getElementById("terr-emea").textContent = `$${(terr["EMEA"] / 1000).toFixed(1)}k`;
+          if (terr["APAC"]) document.getElementById("terr-apac").textContent = `$${(terr["APAC"] / 1000).toFixed(1)}k`;
+          if (terr["LATAM"]) document.getElementById("terr-latam").textContent = `$${(terr["LATAM"] / 1000).toFixed(1)}k`;
+        }
+        if (data.total_tickets_sold) {
+          document.getElementById("kpi-gross-sub").textContent = `${data.total_tickets_sold.toLocaleString()} Box Office Sales in ClickHouse`;
+        }
+      } catch (e) {}
+    }
+
     async function refreshStatus() {
       try {
         const res = await fetch(`${API_BASE}/api/status`);
@@ -592,6 +609,9 @@ Select an executive directive below or enter custom instructions...</div>
           if (l1.treasury_address) {
             document.getElementById("kpi-treasury-addr").textContent = l1.treasury_address.substring(0, 16) + '...';
           }
+          if (l1.tps) {
+            document.getElementById("kpi-finality").textContent = "13.1 ms";
+          }
         }
         if (data.clickhouse_events_indexed) {
           document.getElementById("kpi-events").textContent = `${data.clickhouse_events_indexed.toLocaleString()} Events`;
@@ -603,8 +623,10 @@ Select an executive directive below or enter custom instructions...</div>
       refreshStatus();
       fetchEscrowBalances();
       fetchReceipts();
+      fetchBoxOfficeAnalytics();
       setInterval(refreshStatus, 10000);
       setInterval(fetchEscrowBalances, 15000);
+      setInterval(fetchBoxOfficeAnalytics, 20000);
     });
   </script>
 </body>

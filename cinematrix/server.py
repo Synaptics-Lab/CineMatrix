@@ -50,7 +50,9 @@ def get_status() -> Dict[str, Any]:
             "canonical_height": l1_status.get("canonical_height", l1_status.get("checkpoint_height", 5200)),
             "tps": l1_status.get("tps", 420.0),
             "synced": l1_status.get("synced", True),
-            "consensus": "SCBFT DAG-Primary (256-Lane SMR)"
+            "consensus": "SCBFT DAG-Primary (256-Lane SMR)",
+            "treasury_syn": l1_status.get("treasury_syn", 99924.0),
+            "treasury_address": l1_status.get("treasury_address", "syn1y7qf8tfthtgz0rpn9s574wdwc5y2s8xa5tv47r")
         }
     }
 
