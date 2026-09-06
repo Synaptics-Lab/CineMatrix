@@ -4,6 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CineMatrix · Autonomous Studio Director & Real-Time On-Chain SMR Platform</title>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://click.synapticchain.xyz/">
+  <meta property="og:title" content="CineMatrix · Autonomous Studio Director & Real-Time On-Chain SMR">
+  <meta property="og:description" content="ClickHouse real-time telemetry meets Google Gemini Pro 3.1 contextual reasoning and SynapticChain 256-lane parallel on-chain settlements.">
+  <meta property="og:image" content="https://click.synapticchain.xyz/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://click.synapticchain.xyz/">
+  <meta name="twitter:title" content="CineMatrix · Autonomous Studio Director & Real-Time On-Chain SMR">
+  <meta name="twitter:description" content="ClickHouse real-time telemetry meets Google Gemini Pro 3.1 contextual reasoning and SynapticChain 256-lane parallel on-chain settlements.">
+  <meta name="twitter:image" content="https://click.synapticchain.xyz/cinematrix_devpost_banner.jpg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -71,11 +91,11 @@
     }
     .brand { display: flex; align-items: center; gap: 12px; }
     .brand-logo {
-      width: 42px; height: 42px; border-radius: 10px;
-      background: linear-gradient(135deg, var(--gold), #D97706);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; font-weight: 800; color: #000;
+      width: 44px; height: 44px; border-radius: 10px;
+      object-fit: cover;
       box-shadow: 0 0 16px var(--gold-glow);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      display: block;
     }
     .brand-title { font-size: 19px; font-weight: 800; letter-spacing: 0.5px; }
     .brand-title span { color: var(--gold); }
@@ -355,7 +375,7 @@
   <!-- Header -->
   <header>
     <div class="brand">
-      <div class="brand-logo" data-tip="CineMatrix Studio|Autonomous AI Studio Director & On-Chain SMR Settlement Platform.">🎬</div>
+      <img src="/logo.png" alt="CineMatrix Studio" class="brand-logo" data-tip="CineMatrix Studio|Autonomous AI Studio Director & On-Chain SMR Settlement Platform.">
       <div>
         <div class="brand-title">CINE<span>MATRIX</span> STUDIO</div>
         <div class="brand-sub">Autonomous AI Director &amp; Real-Time On-Chain SMR Platform</div>
@@ -704,6 +724,11 @@
     <!-- ==================== TAB 4: ARCHITECTURE & MCP ==================== -->
     <div class="tab-pane" id="tab-architecture">
       
+      <!-- CineMatrix Architecture & Devpost Showcase Banner -->
+      <div style="margin-bottom: 20px; border-radius: 12px; overflow: hidden; border: 1px solid var(--card-border); box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+        <img src="/cinematrix_devpost_banner.jpg" alt="CineMatrix Architecture & Hackathon Showcase Banner" style="width: 100%; height: auto; display: block;">
+      </div>
+
       <!-- Architectural Pillars -->
       <div class="deck-card">
         <div class="card-header">
@@ -1164,6 +1189,10 @@
     }
 
     window.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const initialTab = params.get('tab') || window.location.hash.replace('#', '');
+      if (initialTab) switchTab(initialTab);
+
       refreshStatus();
       fetchEscrowBalances();
       fetchReceipts();
