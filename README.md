@@ -165,3 +165,12 @@ pytest
 - **Primary Track:** ClickHouse Cloud (High-speed streaming & theatrical telemetry)
 - **AI Core:** Google Gemini Pro 3.1 / 2.5 Pro (Autonomous Studio Director)
 - **Financial Rail:** SynapticChain Layer-1 (256-Lane Parallel SMR Micro-Royalties)
+
+---
+
+## 📄 License
+
+This project is open source and available under the **[Apache License 2.0](LICENSE)** (an [OSI-Approved](https://opensource.org/licenses/Apache-2.0) Open Source License).
+
+Copyright (c) 2026 Synaptics Lab & SynapticChain Contributors.
+
