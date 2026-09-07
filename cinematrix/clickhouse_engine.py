@@ -216,10 +216,12 @@ class ClickHouseEngine:
 
         # Identify significant drop-off point
         steepest_drop_minute = 40
+        lowest_pct = min(c["retention_pct"] for c in curve) if curve else 0.0
         return {
             "title_id": title_id,
             "total_sample_viewers": total_viewers,
             "retention_curve": curve,
+            "lowest_retention_pct": lowest_pct,
             "critical_drop_scene_timestamp": "00:42:18",
             "anomaly_reason": "Pacing drop-off detected during exposition sequence in EMEA / North America streams."
         }
@@ -250,7 +252,8 @@ class ClickHouseEngine:
             "fraud_prevention_status": "ACTIVE_DEFENSE",
             "flagged_anomalies_count": len(flagged_clusters),
             "quarantined_revenue_usd": sum(c["estimated_spoofed_gross_usd"] for c in flagged_clusters),
-            "flagged_clusters": flagged_clusters
+            "flagged_clusters": flagged_clusters,
+            "quarantined_clusters": flagged_clusters
         }
 
     def get_recent_royalty_receipts(self, limit: int = 50) -> List[Dict[str, Any]]:
