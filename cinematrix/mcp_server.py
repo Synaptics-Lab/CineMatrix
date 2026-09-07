@@ -30,31 +30,31 @@ def query_box_office_analytics(title_id: str = "dune-part-3", territory: str = "
     """Query real-time ClickHouse box office gross, tickets sold, and format share (IMAX/Dolby)."""
     terr = territory if territory else None
     res = tools.query_box_office_analytics(title_id=title_id, territory=terr)
-    return json.dumps(res, indent=2)
+    return json.dumps(res, indent=2, default=str)
 
 @mcp.tool()
 def analyze_viewer_retention_curve(title_id: str = "dune-part-3") -> str:
     """Analyze second-by-second streaming viewer retention curves and detect critical scene pacing drop-offs."""
     res = tools.analyze_viewer_retention_curve(title_id=title_id)
-    return json.dumps(res, indent=2)
+    return json.dumps(res, indent=2, default=str)
 
 @mcp.tool()
 def detect_streaming_fraud(title_id: str = "dune-part-3") -> str:
     """Scan ClickHouse playback logs to detect VPN botnet playback rings and quarantine fraudulent revenue."""
     res = tools.detect_streaming_fraud(title_id=title_id)
-    return json.dumps(res, indent=2)
+    return json.dumps(res, indent=2, default=str)
 
 @mcp.tool()
 def execute_cast_royalty_split(title_id: str = "dune-part-3", gross_revenue_usd: float = 45000000.0) -> str:
     """Execute concurrent on-chain micro-royalty splits across SynapticChain's 256 parallel lanes."""
     res = tools.execute_cast_royalty_split(title_id=title_id, gross_revenue_usd=gross_revenue_usd)
-    return json.dumps(res, indent=2)
+    return json.dumps(res, indent=2, default=str)
 
 @mcp.tool()
 def predict_box_office_dropoff(title_id: str = "dune-part-3", opening_weekend_gross_usd: float = 45000000.0) -> str:
     """Forecast theatrical drop-off and lifetime gross using opening weekend multipliers and retention logs."""
     res = tools.predict_box_office_dropoff(title_id=title_id, opening_weekend_gross_usd=opening_weekend_gross_usd)
-    return json.dumps(res, indent=2)
+    return json.dumps(res, indent=2, default=str)
 
 def main():
     """Run MCP server in stdio mode (for Claude Desktop, Cursor, and Gemini Enterprise Agents)."""

@@ -53,3 +53,36 @@ def test_gemini_director_reasoning(setup_cinematrix):
     assert response.response is not None
     assert len(response.executed_tools) >= 2
     assert len(response.settlement_receipts) == 6
+
+def test_mcp_server_tools():
+    """Verifies all 5 tools on the official Model Context Protocol (MCP) server execute and serialize cleanly."""
+    import json
+    from cinematrix.mcp_server import (
+        query_box_office_analytics,
+        analyze_viewer_retention_curve,
+        detect_streaming_fraud,
+        execute_cast_royalty_split,
+        predict_box_office_dropoff
+    )
+    
+    # 1. Box Office
+    bo = json.loads(query_box_office_analytics("dune-part-3"))
+    assert bo["total_tickets_sold"] > 0
+    
+    # 2. Retention
+    ret = json.loads(analyze_viewer_retention_curve("dune-part-3"))
+    assert "00:42:18" in ret["critical_drop_scene_timestamp"]
+    
+    # 3. Fraud
+    fraud = json.loads(detect_streaming_fraud("dune-part-3"))
+    assert fraud["flagged_anomalies_count"] >= 1
+    
+    # 4. Multi-Lane Royalty Split
+    split = json.loads(execute_cast_royalty_split("dune-part-3", 10000000.0))
+    assert split["status"] == "ONCHAIN_SETTLEMENT_CONFIRMED"
+    assert len(split["receipts"]) == 6
+    
+    # 5. Drop-off Prediction
+    pred = json.loads(predict_box_office_dropoff("dune-part-3", 45000000.0))
+    assert "projected_week_2_usd" in pred
+
