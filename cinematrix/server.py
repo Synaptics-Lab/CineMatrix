@@ -57,6 +57,7 @@ def get_status() -> Dict[str, Any]:
     }
 
 @app.post("/api/director/chat", response_model=DirectorPromptResponse)
+@app.post("/api/director/execute", response_model=DirectorPromptResponse)
 def director_chat(req: DirectorPromptRequest):
     return director_agent.execute_prompt(user_prompt=req.prompt, title_id=req.title_id or "dune-part-3")
 
@@ -73,6 +74,7 @@ def fraud_detection(title_id: str = "dune-part-3"):
     return tools.detect_streaming_fraud(title_id=title_id)
 
 @app.post("/api/settlements/execute")
+@app.post("/api/split/execute")
 def execute_settlement(title_id: str = "dune-part-3", gross_usd: float = 45000000.0):
     return tools.execute_cast_royalty_split(title_id=title_id, gross_revenue_usd=gross_usd)
 
@@ -85,6 +87,7 @@ def get_escrow_balances():
     return onchain_settler.get_escrow_balances()
 
 @app.get("/api/settlements/verify/{tx_hash}")
+@app.get("/api/verify-receipt/{tx_hash}")
 def verify_settlement_receipt(tx_hash: str):
     return onchain_settler.verify_onchain_receipt(tx_hash)
 
