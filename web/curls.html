@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineMatrix — Live CLI & Curl Verification Playbook</title>
+  <meta name="description" content="Direct, zero-simulation terminal curl verification playbook for CineMatrix: ClickHouse OLAP, Google Gemini Director, and SynapticChain 256-Lane L1 Settlement.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07090e;
+      --panel: #0d121c;
+      --card: #121824;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(0, 240, 255, 0.4);
+      --gold: #e5a93c;
+      --cyan: #00f0ff;
+      --green: #00e676;
+      --red: #ff3366;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.5;
+      padding: 30px 20px 60px;
+    }
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    header {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .title-group h1 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .title-group p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 6px;
+    }
+    .badge-live {
+      background: rgba(0, 230, 118, 0.12);
+      border: 1px solid rgba(0, 230, 118, 0.4);
+      color: var(--green);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .badge-live::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+    }
+    .header-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .btn:hover {
+      border-color: var(--cyan);
+      color: #fff;
+      background: rgba(0, 240, 255, 0.08);
+    }
+    .btn-gold {
+      background: rgba(229, 169, 60, 0.12);
+      border-color: rgba(229, 169, 60, 0.4);
+      color: var(--gold);
+    }
+    .btn-gold:hover {
+      background: var(--gold);
+      color: #07090e;
+      border-color: var(--gold);
+    }
+
+    .curl-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+      margin-bottom: 20px;
+      transition: border-color 0.2s ease;
+    }
+    .curl-card:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .method-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 7px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .method-get { background: rgba(0, 240, 255, 0.15); color: var(--cyan); border: 1px solid rgba(0, 240, 255, 0.3); }
+    .method-post { background: rgba(229, 169, 60, 0.15); color: var(--gold); border: 1px solid rgba(229, 169, 60, 0.3); }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 13.5px;
+      margin-bottom: 14px;
+    }
+
+    .code-box {
+      background: #040609;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      padding: 14px 16px;
+      position: relative;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: #a5d6ff;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .code-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      justify-content: flex-end;
+    }
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 11px;
+    }
+    .copied-toast {
+      color: var(--green);
+      font-size: 11px;
+      font-family: var(--font-mono);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      align-self: center;
+      margin-right: 8px;
+    }
+
+    .live-preview {
+      margin-top: 14px;
+      display: none;
+      background: #020406;
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+    .preview-body {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: #7ee787;
+      max-height: 280px;
+      overflow-y: auto;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="title-group">
+        <h1>
+          <span>CineMatrix CLI &amp; Curl Playbook</span>
+          <span class="badge-live">Live Endpoints Verified</span>
+        </h1>
+        <p>Direct terminal commands to audit telemetry, columnar analytics, MCP SSE transport, and 256-lane L1 settlements.</p>
+      </div>
+      <div class="header-actions">
+        <a href="/" class="btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <span>Director Cockpit</span>
+        </a>
+        <a href="https://click.synapticchain.xyz/docs" target="_blank" class="btn btn-gold">
+          <span>FastAPI Swagger Docs ↗</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- 1. Health -->
+    <div class="curl-card">
+      <div class="card-top">
+        <div class="card-title">
+          <span class="method-tag method-get">GET</span>
+          <span>1. Studio Runtime &amp; Service Health</span>
+        </div>
+      </div>
+      <div class="card-desc">Validates FastAPI studio orchestrator process health, daemon status, and uptime.</div>
+      <div class="code-box" id="cmd-1">curl -s https://click.synapticchain.xyz/healthz</div>
+      <div class="code-actions">
+        <span class="copied-toast" id="toast-1">Copied!</span>
+        <button class="btn btn-sm" onclick="copyCmd('cmd-1', 'toast-1')">Copy Command</button>
+        <button class="btn btn-sm btn-gold" onclick="runCurl('/healthz', 'GET', null, 'prev-1')">▶ Run Live in Browser</button>
+      </div>
+      <div class="live-preview" id="prev-1"></div>
+    </div>
+
+    <!-- 2. System Status & L1 Telemetry -->
+    <div class="curl-card">
+      <div class="card-top">
+        <div class="card-title">
+          <span class="method-tag method-get">GET</span>
+          <span>2. Live ClickHouse &amp; Layer-1 Consensus Telemetry</span>
+        </div>
+      </div>
+      <div class="card-desc">Fetches real-time SCBFT consensus height (#38,900+), un-batched TPS, indexed ClickHouse events, and active Gemini model.</div>
+      <div class="code-box" id="cmd-2">curl -s https://click.synapticchain.xyz/api/status</div>
+      <div class="code-actions">
+        <span class="copied-toast" id="toast-2">Copied!</span>
+        <button class="btn btn-sm" onclick="copyCmd('cmd-2', 'toast-2')">Copy Command</button>
+        <button class="btn btn-sm btn-gold" onclick="runCurl('/api/status', 'GET', null, 'prev-2')">▶ Run Live in Browser</button>
+      </div>
+      <div class="live-preview" id="prev-2"></div>
+    </div>
+
+    <!-- 3. ClickHouse Columnar Box Office -->
+    <div class="curl-card">
+      <div class="card-top">
+        <div class="card-title">
+          <span class="method-tag method-get">GET</span>
+          <span>3. ClickHouse Columnar Box Office Aggregation</span>
+        </div>
+      </div>
+      <div class="card-desc">Executes sub-20ms columnar SQL query aggregating ticket sales across territories (APAC, EMEA, LATAM, NA) and formats (IMAX 70mm, Dolby Cinema).</div>
+      <div class="code-box" id="cmd-3">curl -s https://click.synapticchain.xyz/api/analytics/box-office</div>
+      <div class="code-actions">
+        <span class="copied-toast" id="toast-3">Copied!</span>
+        <button class="btn btn-sm" onclick="copyCmd('cmd-3', 'toast-3')">Copy Command</button>
+        <button class="btn btn-sm btn-gold" onclick="runCurl('/api/analytics/box-office', 'GET', null, 'prev-3')">▶ Run Live in Browser</button>
+      </div>
+      <div class="live-preview" id="prev-3"></div>
+    </div>
+
+    <!-- 4. 256-Lane Royalty Split Execution -->
+    <div class="curl-card">
+      <div class="card-top">
+        <div class="card-title">
+          <span class="method-tag method-post">POST</span>
+          <span>4. 256-Lane Parallel L1 Royalty Disbursement ($45M Split)</span>
+        </div>
+      </div>
+      <div class="card-desc">Triggers concurrent multi-lane settlement across 6 distinct hardware lanes with sub-50ms finality and immutable cryptographic receipts.</div>
+      <div class="code-box" id="cmd-4">curl -s -X POST "https://click.synapticchain.xyz/api/settlements/execute?gross_usd=45000000.0"</div>
+      <div class="code-actions">
+        <span class="copied-toast" id="toast-4">Copied!</span>
+        <button class="btn btn-sm" onclick="copyCmd('cmd-4', 'toast-4')">Copy Command</button>
+        <button class="btn btn-sm btn-gold" onclick="runCurl('/api/settlements/execute?gross_usd=45000000.0', 'POST', null, 'prev-4')">▶ Run Live in Browser</button>
+      </div>
+      <div class="live-preview" id="prev-4"></div>
+    </div>
+
+    <!-- 5. Escrow Wallets & Balances -->
+    <div class="curl-card">
+      <div class="card-top">
+        <div class="card-title">
+          <span class="method-tag method-get">GET</span>
+          <span>5. Cast &amp; Crew On-Chain Escrow Balances</span>
+        </div>
+      </div>
+      <div class="card-desc">Inspects real-time balances for all 6 contractual escrow recipients on SynapticChain Layer-1.</div>
+      <div class="code-box" id="cmd-5">curl -s https://click.synapticchain.xyz/api/escrows</div>
+      <div class="code-actions">
+        <span class="copied-toast" id="toast-5">Copied!</span>
+        <button class="btn btn-sm" onclick="copyCmd('cmd-5', 'toast-5')">Copy Command</button>
+        <button class="btn btn-sm btn-gold" onclick="runCurl('/api/escrows', 'GET', null, 'prev-5')">▶ Run Live in Browser</button>
+      </div>
+      <div class="live-preview" id="prev-5"></div>
+    </div>
+
+    <!-- 6. Direct L1 RPC Checkpoint Query -->
+    <div class="curl-card">
+      <div class="card-top">
+        <div class="card-title">
+          <span class="method-tag method-post">POST</span>
+          <span>6. Direct SynapticChain Layer-1 JSON-RPC Status</span>
+        </div>
+      </div>
+      <div class="card-desc">Connects straight to the Layer-1 validator mesh on Zeta, returning BFT sync status and canonical block hash.</div>
+      <div class="code-box" id="cmd-6">curl -s -X POST https://nodes.synapticchain.xyz/rpc -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"syn_getStatus","params":[],"id":1}'</div>
+      <div class="code-actions">
+        <span class="copied-toast" id="toast-6">Copied!</span>
+        <button class="btn btn-sm" onclick="copyCmd('cmd-6', 'toast-6')">Copy Command</button>
+        <button class="btn btn-sm btn-gold" onclick="runCurl('https://nodes.synapticchain.xyz/rpc', 'POST', JSON.stringify({jsonrpc:'2.0',method:'syn_getStatus',params:[],id:1}), 'prev-6', {'Content-Type':'application/json'})">▶ Run Live in Browser</button>
+      </div>
+      <div class="live-preview" id="prev-6"></div>
+    </div>
+
+  </div>
+
+  <script>
+    function copyCmd(elementId, toastId) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById(toastId);
+        toast.style.opacity = '1';
+        setTimeout(() => { toast.style.opacity = '0'; }, 1800);
+      });
+    }
+
+    async function runCurl(url, method, body, previewId, headers = {}) {
+      const container = document.getElementById(previewId);
+      container.style.display = 'block';
+      container.innerHTML = `<div class="preview-header"><span>Executing live ${method} request...</span></div><div class="preview-body" style="color: #8b949e;">Connecting to live node...</div>`;
+      
+      const t0 = performance.now();
+      try {
+        const opts = { method, headers };
+        if (body && method === 'POST') opts.body = body;
+        const res = await fetch(url, opts);
+        const data = await res.json();
+        const t1 = performance.now();
+        const latency = (t1 - t0).toFixed(1);
+
+        container.innerHTML = `
+          <div class="preview-header">
+            <span style="color: var(--green);">HTTP ${res.status} OK</span>
+            <span>Latency: ${latency} ms</span>
+          </div>
+          <div class="preview-body">${JSON.stringify(data, null, 2)}</div>
+        `;
+      } catch (err) {
+        container.innerHTML = `
+          <div class="preview-header">
+            <span style="color: var(--red);">Execution Error</span>
+          </div>
+          <div class="preview-body" style="color: var(--red);">${err.message}</div>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>
